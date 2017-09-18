@@ -16,7 +16,13 @@
 <body>
     <div id="app">
         <v-app>
-            @yield('content')
+            @include('partials.header')
+
+            <main>
+                <v-container>
+                    @yield('content')
+                </v-container>
+            </main>
         </v-app>
     </div>
 

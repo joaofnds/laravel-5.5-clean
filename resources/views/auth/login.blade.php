@@ -1,50 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-<form method="POST" action="{{ route('login') }}">
-    {{ csrf_field() }}
+    <v-layout>
+        <v-flex xs8 offset-xs2 elevation-2 px-3 py-4>
+            @foreach($errors->all() as $error)
+                <v-alert error value="true">{{ $error }}</v-alert>
+            @endforeach
 
-    <div class="{{ $errors->has('email') ? ' has-error' : '' }}">
-        <label for="email">E-Mail Address</label>
-        <div>
-            <input id="email"
-                type="email"
-                name="email"
-                value="{{ old('email') }}"
-                required
-                autofocus />
-
-            @if ($errors->has('email'))
-                <span>
-                    <strong>{{ $errors->first('email') }}</strong>
-                </span>
-            @endif
-        </div>
-    </div>
-
-    <div class="{{ $errors->has('password') ? ' has-error' : '' }}">
-        <label for="password">Password</label>
-        <div>
-            <input id="password"
-                type="password"
-                name="password"
-                required />
-
-            @if ($errors->has('password'))
-                <span>
-                    <strong>{{ $errors->first('password') }}</strong>
-                </span>
-            @endif
-        </div>
-    </div>
-
-    <label>
-        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-    </label>
-
-    <div>
-        <button type="submit">Login</button>
-        <a href="{{ route('password.request') }}">Forgot Your Password?</a>
-    </div>
-</form>
+            <app-login-form action="{{ route('login') }}" token="{{ csrf_token() }}"></app-login-form>
+        </v-flex>
+    </v-layout>
 @endsection
